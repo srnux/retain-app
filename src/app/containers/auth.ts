@@ -56,9 +56,9 @@ import { Router } from '@angular/router';
             placeholder="email"
             required
             [(ngModel)]="user.email"
-            #email="ngModel"
-          >
-          <div class="error" [hidden]="email.valid || email.pristine">email is invalid</div>
+            #email="ngModel" 
+          ><!-- Create a variable email and attach it to ngModel-->
+          <div class="error" [hidden]="email.valid || email.pristine">email is invalid</div><!-- pristine = untouched-->
           <input
             class="col-xs-8"
             type="password"

@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
+import {Router} from '@angular/router';
+import{Store} from '../store';
 
 @Component({
   selector: 'app-bar',
@@ -29,10 +31,25 @@ import { Component } from '@angular/core';
       <nav class="col-xs-2">
         <div class="row middle-xs between-xs">
           <span [routerLink]="['', 'about']" class="link">About</span>
-          <span class="link">signout</span>
+          <span class="link">
+              <a (click)="signout()" class="btn-light link"><i class="material-icons">exit_to_app</i></a>
+          </span>
         </div>
       </nav>
     </header>
   `
 })
-export class AppBar {}
+
+@Injectable()
+export class AppBar {
+  JWT_KEY: string = 'retain_token';
+
+  constructor(private store:Store,private router:Router){
+  }
+
+  signout() {
+    window.localStorage.removeItem(this.JWT_KEY);
+    this.store.purge();
+    this.router.navigate(['', 'auth']);
+  }
+}
